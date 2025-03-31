@@ -1,18 +1,18 @@
 package se.su.ovning1;
 
 public abstract class Recording extends Item implements PriceableWithVAT25 {
-    private String artist;
-    private int year;
+
+    private final String artist;
+    private final int year;
     private int condition;
-    private double price;
+    private final double price;
 
     public Recording(String name, String artist, int year, int condition, double price) {
         super(name);
         this.artist = artist;
         this.year = year;
         this.condition = condition;
-        var conditionPrice = price * (condition / 10.0);
-        this.price = conditionPrice < 10 ? 10 : conditionPrice;
+        this.price = price;
     }
 
     public String getArtist() {
@@ -31,21 +31,12 @@ public abstract class Recording extends Item implements PriceableWithVAT25 {
 
     @Override
     public String toString() {
-        return "Recording [artist=" + artist + ", year=" + year + ", condition=" + condition + ", price=";
+        return getType() + ": name=" + getName() + "artist=" + artist + ", year=" + year + ", condition=" + condition + ", original price=" + price + ", price=" + getPrice() + ", price+vat=" + getPriceWithVAT();
     }
 
     @Override
     public double getPrice() {
-        return price;
-    }
-
-    @Override
-    public double getVAT() {
-        return price * 0.25;
-    }
-
-    @Override
-    public double getPriceWithVAT() {
-        return price * 1.25;
+        var conditionPrice = price * (condition / 10.0);
+        return conditionPrice < 10 ? 10 : conditionPrice;
     }
 }

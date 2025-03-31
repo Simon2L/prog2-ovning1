@@ -2,9 +2,9 @@ package se.su.ovning1;
 
 public class Book extends Item implements PriceableWithVAT6 {
 
-    private double price;
-    private boolean bound;
-    private String author;
+    private final double price;
+    private final boolean bound;
+    private final String author;
 
     public Book(String name, String author, double price, boolean bound) {
         super(name);
@@ -13,7 +13,7 @@ public class Book extends Item implements PriceableWithVAT6 {
         this.bound = bound;
     }
 
-    public String getType(){
+    private String getType(){
         return "Book";
     }
 
@@ -23,17 +23,7 @@ public class Book extends Item implements PriceableWithVAT6 {
     }
 
     @Override
-    public double getVAT() {
-        return price * 0.06;
-    }
-
-    @Override
-    public double getPriceWithVAT() {
-        return price * 1.06;
-    }
-
-    @Override
     public String toString() {
-        return author + " " + price + " " + bound;
+        return getType() + ": name=" + getName() + ", " + "author=" + author + ", " + "bound=" + bound + ", " + "price=" + price + ", " + "price+VAT=" + getPriceWithVAT();
     }
 }
